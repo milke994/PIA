@@ -1,0 +1,101 @@
+
+
+<app-header></app-header>
+  <mat-card layout-align = "center center">
+    <mat-card-title>
+            <span class="md-headline">Sign In</span>
+    </mat-card-title>
+    <div *ngIf = "message">
+        <output>{{message}}</output>
+    </div>
+<form (submit) = "login(formReference)" #formReference = "ngForm">
+      <div>
+        <div>
+          <mat-form-field> 
+            <input matInput type='text' placeholder="Your username"  ngModel name='username' required #username = "ngModel">
+            <mat-error *ngIf="username.invalid">Please enter your username</mat-error>
+          </mat-form-field>
+        </div>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput [type]="!hide ? 'password' : 'text'" placeholder="Your password" ngModel name='password' required #password = "ngModel">
+            <mat-icon matSuffix (click)="hide = !hide">{{!hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="password.invalid">Please enter your password</mat-error>
+          </mat-form-field>
+         </div>
+         <div layout = "row" layout-aling = "center center" width = 100%>
+          <button mat-button type="submit">Login</button>
+       </div>
+         <div layout = "row" layout-aling = "center center" width = 100%>
+            <button mat-button type="button" (click)="resetPass()">Resset password</button>
+            <button mat-button type = "button" (click) = register()>Register</button>
+            <button mat-button type = "button" (click) = forgotPassword()>Forgoten password</button>
+         </div>
+  </form>
+</mat-card>
+
+<mat-card *ngIf="forgotpassword == true" layout-align = "center center" >
+  <mat-card-title>
+    <span class="md-headline">Forgoten Password</span>
+  </mat-card-title>
+  <div *ngIf = "message2">
+    <output>{{message2}}</output>
+  </div>
+  <form (submit) = "forgotenPassword(formReference)" #formReference = "ngForm">
+    <div>
+      <mat-form-field> 
+        <input matInput type='text' placeholder="Your username"  ngModel name='username' required #username = "ngModel">
+        <mat-error *ngIf="username.invalid">Please enter your username</mat-error>
+      </mat-form-field>
+      <mat-form-field> 
+        <input matInput type='text' placeholder="Your jmbg"  ngModel name='jmbg' required #jmbg = "ngModel" minlength="13" maxlength="13">
+        <mat-error *ngIf="jmbg.invalid">Please enter your jmbg</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-button type="submit">Continue</button>
+      <button mat-button type = "button" (click) = cancelforgot()>Cancel</button>
+    </div>
+  </form>
+</mat-card>
+
+<mat-card *ngIf="resetpassword == true" layout-align = "center center" >
+  <mat-card-title>
+    <span class="md-headline">Reset Password</span>
+  </mat-card-title>
+  <div *ngIf = "message3">
+    <output>{{message3}}</output>
+  </div>
+  <form (submit) = "resetPassword(formReference)" #formReference = "ngForm">
+    <div>
+      <mat-form-field> 
+        <input matInput type='text' placeholder="Your username"  ngModel name='username' required #username = "ngModel">
+        <mat-error *ngIf="username.invalid">Please enter your username</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [type]="!hide1 ? 'password' : 'text'" placeholder="Your password" ngModel name='password' required #password = "ngModel">
+        <mat-icon matSuffix (click)="hide1 = !hide1">{{!hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="password.invalid">Please enter your password</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field> 
+        <input matInput [type]="!hide2 ? 'password' : 'text'" pattern = "^(?=.{8,12}$)([A-z])(?=.*[a-z].*[a-z].*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)(?:([\w\d*?!@#$%:;])\2?(?!\2))+$"
+         placeholder="Your new password"  ngModel name='newpassword' required #newpassword = "ngModel">
+        <mat-icon matSuffix (click)="hide2 = !hide2">{{!hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="newpassword.invalid">Please enter your new password</mat-error>
+      </mat-form-field>
+      <mat-form-field> 
+        <input matInput [type]="!hide3 ? 'password' : 'text'" placeholder="Your new password again"  ngModel name='newpassword2' required #newpassword2 = "ngModel">
+        <mat-error *ngIf="newpassword2.invalid">Please reenter your new password</mat-error>
+        <mat-icon matSuffix (click)="hide3 = !hide3">{{!hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+  </div>
+    <div>
+      <button mat-button type="submit">Continue</button>
+      <button mat-button type = "button" (click) = cancelreset()>Cancel</button>
+    </div>
+  </form>
+</mat-card>
+<app-footer></app-footer>

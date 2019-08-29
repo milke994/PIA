@@ -1,0 +1,67 @@
+<app-header></app-header>
+<mat-card style="width:40%">
+  <div>
+    <button mat-button type="button" (click) = "listUsersPressed()">User requests</button>
+    <button mat-button type="button" (click) = "defineGameOfTheDayPressed()">Game of the day</button>
+  </div>  
+</mat-card>
+
+<mat-card style="width:80%" *ngIf="listUsers == true">
+  <mat-card-title>
+    <span class="md-headline">List of unapproved users</span>
+  </mat-card-title>
+  <div *ngIf="users.length == 0">
+    <span>Sorry, there are no new user requests</span>
+  </div>
+  <table *ngIf="users.length > 0">
+    <thead>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Email</th>
+      <th>Username</th>
+      <th>JMBG</th>
+      <th>Approve</th>
+      <th>Dissmis</th>
+    </thead>
+    <tr *ngFor="let user of users">
+      <td>{{user.name}}</td>
+      <td>{{user.lastname}}</td>
+      <td>{{user.mail}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.jmbg}}</td>
+      <td><button mat-button type="button" (click)="userApproved(user)"> Approve </button></td>
+      <td><button mat-button type="button" (click)="userUnapproved(user)"> Dissmis </button></td>
+    </tr>
+  </table>
+</mat-card>
+
+<mat-card style="width: 80%" *ngIf="defineGameOfTheDay == true">
+  <mat-card-title>
+    <span class="md-headline">Define Game Of The Day</span>
+  </mat-card-title>
+  <div class = "error-div"*ngIf="message">
+    <output>{{message}}</output>
+  </div>
+  <form (submit)="saveGameOfTheDay(formReference)" #formReference = "ngForm">
+  <div>
+    <output>Choose a date:</output>
+    <mat-form-field>
+      <input matInput type="date" required class = "dateInput" format = "dd-MM-yyyy"(change)="onDateSelected($event)" ngModel name='date' #date = "ngModel" min = "{{today | date:'yyyy-MM-dd'}}">
+      <mat-error *ngIf="date.invalid">Please enter date</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <output>Anagram:</output>
+    <mat-form-field class ="select-form">
+    <select matNativeControl required ngModel name = 'anagram1' #anagram1 = "ngModel">
+      <option *ngFor="let anagram of anagrams">{{anagram.zagonetka}}/{{anagram.resenje}}</option>
+    </select>
+    <mat-error *ngIf="anagram1.invalid"> Please enter anagram </mat-error>
+  </mat-form-field>
+  </div>
+  <div>
+    <button mat-button type="submit">Save</button>
+  </div>
+</form>
+</mat-card>
+<app-footer></app-footer>

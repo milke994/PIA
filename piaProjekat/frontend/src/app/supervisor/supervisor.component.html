@@ -1,0 +1,116 @@
+<app-header></app-header>
+<mat-card style = "width: 40%">
+  <div style="width: 100%">
+    <button mat-button type = "button" (click)="acceptWordsButtonClicked()">Approve words</button>
+    <button mat-button type = "button" (click)="databaseWorkButtonClicked()">Database work</button>
+  </div>
+</mat-card>
+
+<mat-card style="width: 80%" *ngIf="message">
+  <span>{{message}}</span>
+</mat-card>
+
+<mat-card style="width: 80%" *ngIf="acceptWords == true">
+  <mat-card-title>
+    <span>Accept Words</span>
+  </mat-card-title>
+  <div *ngIf="answers">
+    <table>
+      <thead>
+        <th>username</th>
+        <th>date</th>
+        <th>category</th>
+        <th>term</th>
+        <th>approve</th>
+        <th>dissmis</th>
+      </thead>
+      <thead *ngFor="let answer of answers">
+      <tr *ngFor="let cat of answer.categories; let i = index">
+          <td>{{answer.username}}</td>
+          <td>{{answer.date.day}}/{{answer.date.month}}/{{answer.date.year}}</td>
+          <td>{{cat}}</td>
+          <td>{{answer.terms[i]}}</td>
+          <td><button mat-button type="button" (click)="acceptButtonClicked(answer.date,cat,answer.username,answer.terms[i])">Approve</button></td>
+          <td><button mat-button type="button" (click)="dissmisButtonClicked(answer.date,cat,answer.username,answer.terms[i])">Dissmis</button></td>
+      </tr>
+      </thead>
+    </table>
+  </div>
+</mat-card>
+
+<mat-card style="width: 80%" *ngIf="databaseWork == true">
+  <mat-card-title>
+    <span>Database Work</span>
+  </mat-card-title>
+  <div>
+    <mat-radio-group>
+      <mat-radio-button value="false" (click)="manuallyClicked()">Manually</mat-radio-button>
+      <mat-radio-button value="true" (click)="fromFileClicked()">From file</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <hr>
+  <form *ngIf="fromFile == false" (submit)="saveToDatabase(formReference)" #formReference = "ngForm">
+    <div>
+      <mat-form-field>
+        <mat-label>Select game type</mat-label>
+        <mat-select [(value)] = "gameType" aria-label="Game type" matNativeControl required ngModel name="type" #type="ngModel" >
+          <mat-option value="Anagram">Anagram</mat-option>
+          <mat-option value="Geography">Geography</mat-option>
+        </mat-select>
+        <mat-error *ngIf="type.invalid"> Please enter game type </mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngIf="gameType == 'Anagram'">
+      <mat-form-field style="width:80%">
+        <input matInput type="text" placeholder="Riddle" required ngModel name="riddle" #riddle="ngModel">
+        <mat-error *ngIf="riddle.invalid"> Please enter riddle </mat-error>
+      </mat-form-field>
+      <mat-form-field style="width: 80%">
+        <input matInput type="text" placeholder="Answer" required ngModel name="answer" #answer="ngModel">
+        <mat-error *ngIf="answer.invalid"> Please enter answer </mat-error>
+      </mat-form-field>
+      <div>
+      <button style="width: auto" mat-button type="submit">Save</button>
+    </div>
+    </div>
+
+    <div *ngIf="gameType == 'Geography'">
+      <div>
+      <mat-form-field >
+        <mat-label>Select a letter</mat-label>
+        <mat-select aria-label="Game type" matNativeControl required ngModel name="letter" #letter="ngModel" >
+          <mat-option *ngFor="let leter of letters" value={{leter}}>{{leter}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="letter.invalid"> Please enter a letter </mat-error>
+      </mat-form-field>
+      </div>
+      <div>
+      <mat-form-field style="margin-right: 1rem">
+        <mat-label>Select a term</mat-label>
+        <mat-select matNativeControl required ngModel name="category" #category="ngModel" >
+          <mat-option *ngFor="let cat of categories" value={{cat}}>{{cat}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="category.invalid"> Please enter a category </mat-error>
+      </mat-form-field>
+      <mat-form-field style="margin-left : 1rem">
+        <input matInput placeholder="Your term" required ngModel name="term" #term = "ngModel">
+        <mat-error *ngIf="term.invalid"> Please enter a term </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <button style="width: auto" mat-button type="submit">Save</button>
+    </div>
+
+    </div>
+  </form>
+
+  <form *ngIf="fromFile == true" (submit)="saveToDatabaseFromFile(formReference)" #formReference = "ngForm">
+    <div>
+        <input type="file" placeholder="choose your file" (change)="onFileSelected($event)">
+    </div>
+    <div *ngIf = "json">
+        <button style="width: auto" mat-button type="submit">Save</button>
+    </div>
+  </form>
+</mat-card>
+<app-footer></app-footer>

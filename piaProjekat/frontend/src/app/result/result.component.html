@@ -1,0 +1,33 @@
+<app-header></app-header>
+
+<mat-card style="width:80%">
+  <mat-card-title>
+    <span>Game Of The Day Rankings</span>
+    <hr>
+  </mat-card-title>
+  <div>
+    <span *ngIf="results.length == 0">No Results to show</span>
+    <table *ngIf="results.length > 0">
+      <thead>
+        <th>rank</th>
+        <th>username</th>
+        <th>score</th>
+      </thead>
+      <tr *ngFor="let rank of results | slice:0:10; let i=index">
+        <td>{{i + 1}}.</td>
+        <td>{{rank.username}}</td>
+        <td>{{rank.total}}</td>
+      </tr>
+      <tr *ngIf="myResult">
+        <td>{{rank + 1}}</td>
+        <td>{{myResult.username}}</td>
+        <td>{{myResult.total}}</td>
+      </tr>
+    </table>
+  </div>
+  <div>
+    <button style="-webkit-text-fill-color : blue" mat-button type="button" (click)="goBack()">Back</button>
+  </div>
+</mat-card>
+
+<app-footer></app-footer>

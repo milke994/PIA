@@ -1,0 +1,157 @@
+<app-header></app-header>
+<mat-card style="width: 80%" *ngIf="have == true && gameTurn == 1">
+  <div class = "timer">
+    <output>
+      {{time}}
+    </output>
+  </div>
+  <mat-card-title>
+    <span>Anagram</span>
+    <hr>
+  </mat-card-title>
+  <div *ngIf="message">
+    <span>{{message}}</span>
+  </div>
+  <div>
+    <output type="text">{{game.anagram.zagonetka}}</output>
+  </div>
+  <div class = "answer">
+    <mat-form-field>
+      <input matInput type="text" placeholder="YourAnswer" required #answer>
+    </mat-form-field>
+  </div>
+  <div>
+    <button mat-button type="button" (click)="checkAnagram()">Save</button>
+  </div>
+</mat-card>
+
+<mat-card style="width: 80%" *ngIf="gameTurn == 2">
+    <div class = "timer">
+      <output>
+        {{time}}
+      </output>
+    </div>
+    <mat-card-title>
+      <span>Moj Broj</span>
+      <hr>
+    </mat-card-title>
+    <div *ngIf="message">
+      <span>{{message}}</span>
+    </div>
+
+    <div>
+      <button mat-button type="button" (click)="stop()" #stopButton>STOP</button>
+    </div>
+    <div *ngIf="numberToGet">
+      <output>{{numberToGet}}</output>
+    </div>
+    <div>
+      <button mat-button *ngFor="let num of numbers" (click)="add(num)">{{num}}</button>
+    </div>
+
+    <div>
+      <button mat-button type="button"(click)="operation(op)" *ngFor="let op of operations">{{op}}</button>
+    </div>
+
+    <div *ngIf="answer2">
+      <output type="text" style="width:80%">{{answer2}}</output>
+      <button class = "resetButton" mat-button type="button" (click)="reset()">Reset</button>
+    </div>
+    <div *ngIf="index > 5">
+      <button mat-button type="button" (click) = "done()">Done</button>
+    </div>
+  </mat-card>
+
+  <mat-card style="width:80%" *ngIf = "gameTurn == 3">
+    <form (submit)="done3(formReference)" #formReference = "ngForm">
+    <div class = "timer">
+      <output>
+        {{time}}
+      </output>
+    </div>
+    <mat-card-title>
+      <span>Geografija</span>
+      <hr>
+    </mat-card-title>
+    <div *ngIf="message">
+      <span>{{message}}</span>
+    </div>
+    <div *ngIf="!letter">
+      <button mat-button type="button" (click)="stop3()">Stop</button>
+    </div>
+    <div>
+      <output type = "text">{{letter}}</output>
+    </div>
+      <table *ngIf = "letter">
+        <thead>
+          <th *ngFor="let category of categories">{{category}}</th>
+        </thead>
+        <tr>
+          <td>
+              <input matInput type="text" ngModel name="drzava">
+          </td>
+          <td>
+              <input matInput type="text" ngModel name="grad">
+          </td>
+          <td>
+              <input matInput type="text" ngModel name="jezero">
+          </td>
+          <td>
+              <input matInput type="text" ngModel name="planina">
+          </td>
+          <td>
+              <input matInput type="text" ngModel name="reka">
+          </td>
+          <td>
+              <input matInput type="text" ngModel name="zivotinja">
+          </td>
+          <td>
+              <input matInput type="text" ngModel name="biljka">
+          </td>
+          <td>
+              <input matInput type="text" ngModel name="muzika">
+          </td>
+        </tr>
+        <tr *ngIf="points3.length > 0">
+          <td *ngFor="let p of points3">{{p}}</td>
+        </tr>
+      </table>
+      <div *ngIf="letter">
+        <button mat-button type="submit">Done</button>
+      </div>
+    </form>
+  </mat-card>
+
+  <mat-card *ngIf="gameTurn==4" style="width: 80%">
+    <mat-card-title>
+      <span>Your points</span>
+      <hr>
+    </mat-card-title>
+    <table>
+      <thead>
+        <th>Anagram</th>
+        <th>Moj Broj</th>
+        <th>Geografija</th>
+      </thead>
+      <tr>
+        <td>{{points.anagram}}</td>
+        <td>{{points.mojBroj}}</td>
+        <td>{{points.geografija}}</td>
+      </tr>
+    </table>
+    <div>
+      <span>Total : {{total}}</span>
+    </div>
+    <div>
+      <button mat-button type="button" (click)="done4()">Done</button>
+    </div>
+  </mat-card>
+<mat-card style="width:80%" *ngIf="have==false">
+  <div>
+    <span style="-webkit-text-fill-color:red" >{{message}}</span>
+  </div>
+  <div style="margin-top:3rem">
+    <button mat-button style="-webkit-text-fill-color:blue" type="button" (click)="goBack()">Done</button>
+  </div>
+</mat-card>
+<app-footer></app-footer>

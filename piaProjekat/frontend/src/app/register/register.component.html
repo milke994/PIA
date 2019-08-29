@@ -1,0 +1,90 @@
+
+<app-header></app-header>
+<mat-card layout = "column" layou-align = "center center">
+  <mat-card-title>
+    Register
+  </mat-card-title>
+<form (submit) = "register(formReference)" #formReference = "ngForm">
+  <div>
+      <mat-form-field> 
+        <input matInput type='text' placeholder="Your first name"  ngModel name='name' required #name = "ngModel">
+        <mat-error *ngIf="name.invalid">Please enter your name</mat-error>
+      </mat-form-field>
+      <mat-form-field> 
+        <input matInput type='text' placeholder="Your last name"  ngModel name='lastname' required #lastname = "ngModel">
+        <mat-error *ngIf="lastname.invalid">Please enter your lastname</mat-error>
+      </mat-form-field>
+  </div>
+  <div>
+      <mat-form-field> 
+        <input matInput type='text' placeholder="Your email"  ngModel name='mail' required #mail = "ngModel">
+        <mat-error *ngIf="mail.invalid">Please enter your email</mat-error>
+      </mat-form-field>
+      <mat-form-field> 
+        <input matInput type='text' placeholder="Your occupation"  ngModel name='occupation' required #occupation = "ngModel">
+        <mat-error *ngIf="occupation.invalid">Please enter your occupation</mat-error>
+      </mat-form-field>
+  </div>
+  <div>
+      <mat-form-field> 
+        <input matInput type='text' placeholder="Your username"  ngModel name = 'username' required #username = "ngModel">
+        <mat-error *ngIf="username.invalid">Please enter your username</mat-error>
+      </mat-form-field>
+  </div>
+  <div>
+      <mat-form-field> 
+        <input matInput [type]="!hide1 ? 'password' : 'text'" pattern = "^(?=.{8,12}$)([A-z])(?=.*[a-z].*[a-z].*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)(?:([\w\d*?!@#$%:;])\2?(?!\2))+$"
+        placeholder="Your password"  ngModel name='password' required #password = "ngModel">
+        <mat-icon matSuffix (click)="hide1 = !hide1">{{!hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="password.invalid">Please enter your password right</mat-error>
+      </mat-form-field>
+      <mat-form-field> 
+        <input matInput [type]="!hide2 ? 'password' : 'text'" placeholder="Your password again"  ngModel name='password2' required #password2 = "ngModel">
+        <mat-error *ngIf="password2.invalid">Please reenter your password</mat-error>
+        <mat-icon matSuffix (click)="hide2 = !hide2">{{!hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+  </div>
+  <div>
+  <mat-form-field>
+    <input matInput type='text' placeholder="Your JMBG"  ngModel name='jmbg' required #jmbg = "ngModel" minlength="13" maxlength="13">
+    <mat-error *ngIf="jmbg.invalid">Please enter your jmbg right</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+      <mat-label>Genre</mat-label>
+      <select matNativeControl required ngModel name = 'genre'>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="undefined">Undefined</option>
+      </select>
+    </mat-form-field>
+  </div>
+  <div>
+      <mat-form-field> 
+        <textarea matInput type='text' placeholder="Your secret question"  ngModel name='secretQuestion' required #secretQuestion = "ngModel"></textarea>
+        <mat-error *ngIf="secretQuestion.invalid">Please enter your secret question</mat-error>
+      </mat-form-field>
+      <mat-form-field> 
+        <input matInput type='text' placeholder="Your secret answer"  ngModel name='secretAnswer' required #secretAnswer = "ngModel">
+        <mat-error *ngIf="secretAnswer.invalid">Please enter your secret answer</mat-error>
+      </mat-form-field>
+  </div>
+  <div class = "fileDiv">
+    <input type="file" placeholder="choose your image" (change)="onFileSelected($event)">
+    <img *ngIf="selectedFile" [src]="imgUrl" style="width:50px;height:50px;">
+    <output type = "file" style="-webkit-text-fill-color: blue"></output>
+  </div>
+  <div *ngIf='message'>
+    <output>{{message}}</output>
+  </div>
+
+
+
+  <div>
+      <button mat-button type="submit">Register</button>
+      <button mat-button type = "button" (click) = cancel()>Cancel</button>
+   </div>
+</form>
+</mat-card>
+<app-footer></app-footer>
+

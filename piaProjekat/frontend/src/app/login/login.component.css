@@ -1,0 +1,35 @@
+mat-card {
+    width: 40%;
+    margin: 1rem auto;
+    background-color: beige;
+    -webkit-text-fill-color: dimgray;
+    text-align: center;
+    align-self: center;
+}
+input{
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+    text-align: center;
+}
+mat-card-title{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+    color:dimgrey;
+    text-align: center
+}
+
+mat-form-field{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+output {
+    -webkit-text-fill-color: red;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+    font-size: 80%;
+}
+
+button{
+    color: dimgrey;
+    -webkit-text-fill-color: blue;
+}

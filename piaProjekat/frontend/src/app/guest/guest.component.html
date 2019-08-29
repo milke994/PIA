@@ -1,0 +1,45 @@
+<app-header></app-header>
+<body>
+  <mat-card>
+    <mat-card-title>
+      <span>Rank list for this month</span>
+      <hr>
+    </mat-card-title>
+    <div>
+      <table>
+        <thead>
+          <th>Rank</th>
+          <th>username</th>
+          <th>score</th>
+        </thead>
+        <tr *ngFor="let rank of resultsForMonth | slice:0:10; let i=index">
+          <td>{{i + 1}}.</td>
+          <td>{{rank.username}}</td>
+          <td>{{rank.total}}</td>
+        </tr>
+      </table>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>
+      <span>Rank list for last 20 days</span>
+      <hr>
+    </mat-card-title>
+    <div>
+      <table>
+        <thead>
+          <th>Rank</th>
+          <th>username</th>
+          <th>score</th>
+        </thead>
+        <tr *ngFor="let rank of resultsForDays | slice:0:10; let i=index">
+          <td>{{i + 1}}.</td>
+          <td>{{rank.username}}</td>
+          <td>{{rank.total}}</td>
+        </tr>
+      </table>
+    </div>
+  </mat-card>
+</body>
+<app-footer></app-footer>

@@ -1,0 +1,22 @@
+<app-header></app-header>
+<mat-card *ngIf = "approved" style="width: 60%">
+  <div>
+    <button mat-button type="button">Create a game</button>
+  </div>
+  <div>
+    <button mat-button type="button">Join a created game</button>
+  </div>
+  <div>
+    <button mat-button type="button" (click)="playTheGameOfTheDay()">Play the game of the day</button>
+  </div>
+  <div>
+    <button mat-button type="button" (click)="resultsButtonClicked()">Rankings for this day</button>
+  </div>
+</mat-card>
+
+<mat-card *ngIf = "!approved" style="width: 60%">
+    <span>Sorry!!! But we need to wait until our administrator approves your registration...</span>
+</mat-card>
+  <app-footer></app-footer>
+
+
